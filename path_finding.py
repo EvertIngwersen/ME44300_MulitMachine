@@ -65,7 +65,11 @@ plt.xlim(0, m)
 plt.ylim(0, m)
 plt.show()
         
+distance_matrix = np.zeros((n,n))
 
+for i in range(n):
+    for j in range(n):
+        distance_matrix[i,j] = math.sqrt(((x[i]-x[j])**2)+(y[i]-y[j])**2)
 
         
 
