@@ -65,14 +65,13 @@ plt.xlim(0, m)
 plt.ylim(0, m)
 plt.show()
         
-distance_matrix = np.zeros((n,n))
+distance_matrix = np.full((n, n), np.nan)
 
 for i in range(n):
-    for j in range(n):
-        distance_matrix[i,j] = math.sqrt(((x[i]-x[j])**2)+(y[i]-y[j])**2)
-
-        
-
+    for j in vertices_dict[i]:
+        dist = math.sqrt((x[i] - x[j])**2 + (y[i] - y[j])**2)
+        distance_matrix[i, j] = dist
+        distance_matrix[j, i] = dist
 
 
 
