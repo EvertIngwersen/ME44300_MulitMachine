@@ -10,52 +10,61 @@ import random
 import math
 import matplotlib.pyplot as plt
 
-random_seed = random.seed(77)
-n = 10 # amount of nodes
-m = 10 # size of the graph 
 
-x = [random.random()*m for _ in range(n)]
-y = [random.random()*m for _ in range(n)] 
 
-nodes = np.array([x,y]).T
+def do_edges_intersect(p1, p2, q1, q2):
+    def ccw(a, b, c):
+        return (c[1]-a[1])*(b[0]-a[0]) > (b[1]-a[1])*(c[0]-a[0])
+    return (ccw(p1, q1, q2) != ccw(p2, q1, q2)) and (ccw(p1, p2, q1) != ccw(p1, p2, q2))
 
-integer_list = list(range(0, n))
-vertices_dict = {}
+random.seed(777)
+n = 15
+m = 10
+
+x = [random.random() * m for _ in range(n)]
+y = [random.random() * m for _ in range(n)]
+nodes = np.array([x, y]).T
+integer_list = list(range(n))
+
+edges = set()
+vertices_dict = {i: [] for i in range(n)}
 
 for i in range(n):
-    num_elements = random.randint(1, 3)  # Random number between 1 and max_connections
-    vertices_dict[i] = random.sample(integer_list, num_elements)
+    candidates = [j for j in integer_list if j != i]
+    random.shuffle(candidates)
+    added = 0
+    for j in candidates:
+        if added >= 3:
+            break
+        p1, p2 = nodes[i], nodes[j]
+        intersects = False
+        for a, b in edges:
+            q1, q2 = nodes[a], nodes[b]
+            if len({i, j, a, b}) == 4 and do_edges_intersect(p1, p2, q1, q2):
+                intersects = True
+                break
+        if not intersects:
+            edges.add((i, j))
+            vertices_dict[i].append(j)
+            added += 1
 
-for key in vertices_dict:
-    vertices_dict[key] = [x for x in vertices_dict[key] if x != key]
-    if len(vertices_dict[key]) == 0:
-        vertices_dict[key] = [random.randint(0, n)] 
-    
-    
-plt.figure(1)
-plt.scatter(x, y, marker='o')  
-plt.title('Graph with Connected Nodes')
+# Plotting
+plt.figure()
+plt.scatter(x, y, marker='o')
+plt.title('Planar Graph with No Crossing Edges')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.grid(True)
-# Add node indices
+
 for i in range(n):
-    plt.text(x[i] + 0.1, y[i] + 0.1, str(i), fontsize=9, color='black')
-# Draw connections
-for node, connections in vertices_dict.items():
-    for neighbor in connections:
-        x_coords = [nodes[node][0], nodes[neighbor][0]]
-        y_coords = [nodes[node][1], nodes[neighbor][1]]
-        plt.plot(x_coords, y_coords, color='gray', linewidth=1)
-# Set fixed axis limits
+    plt.text(x[i] + 0.1, y[i] + 0.1, str(i), fontsize=9)
+
+for i, j in edges:
+    plt.plot([x[i], x[j]], [y[i], y[j]], color='gray')
+
 plt.xlim(0, m)
 plt.ylim(0, m)
 plt.show()
-
-distance_matrix = np.zeros((n,n))
-for i in range(n):
-    for j in range(n):
-        distance_matrix[i,j] = math.sqrt(((x[i]-x[j])**2)+(y[i]-y[j])**2)
         
 
 
