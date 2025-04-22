@@ -10,12 +10,22 @@ import random
 import math
 import matplotlib.pyplot as plt
 
-random_seed = random.seed(77)
+random_seed = random.seed(777)
 n = 7
-x = [random.random() for _ in range(n)]
-y = [random.random() for _ in range(n)] 
+m = 10
+
+x = [random.random()*m for _ in range(n)]
+y = [random.random()*m for _ in range(n)] 
 
 nodes = np.array([x,y]).T
+
+integer_list = list(range(0, n))
+random_dict = {}
+
+for i in range(n):
+    num_elements = random.randint(1, len(integer_list))
+    random_dict[i] = random.sample(integer_list, num_elements)
+
 
 plt.figure(1)
 plt.scatter(x, y, marker='o')  
@@ -23,14 +33,18 @@ plt.title('Data Points')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.grid(True)
+for i in range(n):
+    plt.text(x[i] + 0.01, y[i] + 0.01, str(i), fontsize=9, color='black')
 plt.show()  
 
-distance_matrix = np.zeros((n,n))
 
+
+distance_matrix = np.zeros((n,n))
 for i in range(n):
     for j in range(n):
         distance_matrix[i,j] = math.sqrt(((x[i]-x[j])**2)+(y[i]-y[j])**2)
         
+
 
         
 
