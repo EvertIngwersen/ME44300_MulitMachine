@@ -10,8 +10,8 @@ import random
 import math
 import matplotlib.pyplot as plt
 
-random_seed = random.seed(777)
-n = 7
+random_seed = random.seed(77)
+n = 15
 m = 10
 
 x = [random.random()*m for _ in range(n)]
@@ -20,13 +20,18 @@ y = [random.random()*m for _ in range(n)]
 nodes = np.array([x,y]).T
 
 integer_list = list(range(0, n))
-random_dict = {}
+vertices_dict = {}
 
 for i in range(n):
-    num_elements = random.randint(1, len(integer_list))
-    random_dict[i] = random.sample(integer_list, num_elements)
+    num_elements = random.randint(1, 4)  # Random number between 1 and 4
+    vertices_dict[i] = random.sample(integer_list, num_elements)
 
-
+for key in vertices_dict:
+    vertices_dict[key] = [x for x in vertices_dict[key] if x != key]
+    if len(vertices_dict[key]) == 0:
+        vertices_dict[key] = [random.randint(0, n)] 
+    
+    
 plt.figure(1)
 plt.scatter(x, y, marker='o')  
 plt.title('Data Points')
