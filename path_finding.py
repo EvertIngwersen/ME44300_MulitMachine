@@ -10,15 +10,13 @@ import random
 import math
 import matplotlib.pyplot as plt
 
-
-
 def do_edges_intersect(p1, p2, q1, q2):
     def ccw(a, b, c):
         return (c[1]-a[1])*(b[0]-a[0]) > (b[1]-a[1])*(c[0]-a[0])
     return (ccw(p1, q1, q2) != ccw(p2, q1, q2)) and (ccw(p1, p2, q1) != ccw(p1, p2, q2))
 
-random.seed(777)
-n = 15
+random.seed(77)
+n = 8
 m = 10
 
 x = [random.random() * m for _ in range(n)]
@@ -32,9 +30,10 @@ vertices_dict = {i: [] for i in range(n)}
 for i in range(n):
     candidates = [j for j in integer_list if j != i]
     random.shuffle(candidates)
+    max_edges_this_node = random.randint(1, 4)
     added = 0
     for j in candidates:
-        if added >= 3:
+        if added >= max_edges_this_node:
             break
         p1, p2 = nodes[i], nodes[j]
         intersects = False
