@@ -73,6 +73,9 @@ for i in range(n):
         distance_matrix[i, j] = dist
         distance_matrix[j, i] = dist
 
+for i in range(n):
+    distance_matrix[i,i] = 0
+
 
 
 
