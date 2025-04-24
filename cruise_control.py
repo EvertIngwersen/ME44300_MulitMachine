@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 m = 1000            # mass of the car [kg]
 b = 50              # damping [Ns/m]
 
-Kp = 500            # proportional gain
+Kp = 500 
+Ki = 40           # proportional gain
 desired_speed = 25 
 
 t_end = 20
@@ -23,13 +24,18 @@ t = np.arange(0, t_end, dt)
 
 v = 0
 u = 0 
+integral = 0
 v_history = []
 
 for time in t:
-    u = Kp * (desired_speed - v)
-    dv_dt = (u-b*v) / m
+    error = desired_speed - v
+    integral += error * dt
+    u = Kp * error + Ki * integral
+    
+    dv_dt = (u - b*v) / m
     v += dv_dt * dt
     v_history.append(v)
+    
 
 
 plt.figure()
