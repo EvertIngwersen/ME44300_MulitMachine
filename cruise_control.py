@@ -12,7 +12,7 @@ m = 1000            # mass of the car [kg]
 b = 50              # damping [Ns/m]
 
 Kp = 500 
-Ki = 40           # proportional gain
+Ki = 1000           # proportional gain
 desired_speed = 25 
 
 t_end = 20
