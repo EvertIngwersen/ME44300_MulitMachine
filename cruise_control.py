@@ -15,8 +15,8 @@ Kp = 100
 Ki = 10           # proportional gain
 
 
-t_end = 60
-dt = 0.1
+t_end = 10
+dt = 0.01
 
 t = np.arange(0, t_end, dt)
 
@@ -30,7 +30,7 @@ desired_history = []
 
 
 for time in t:
-    desired_speed = 20 + 5 * np.sin(0.5 * time) + time  # Sine wave: oscillates between 15 and 25
+    desired_speed = time**2 + np.sin(3*time)  # Sine wave: oscillates between 15 and 25
     desired_history.append(desired_speed)
 
     error = desired_speed - v
