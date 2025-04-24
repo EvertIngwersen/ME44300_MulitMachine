@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 m = 1000            # mass of the car [kg]
 b = 50              # damping [Ns/m]
 
-Kp = 500 
-Ki = 1000           # proportional gain
+Kp = 100 
+Ki = 10           # proportional gain
 
 
-t_end = 20
+t_end = 60
 dt = 0.1
 
 t = np.arange(0, t_end, dt)
@@ -30,7 +30,7 @@ desired_history = []
 
 
 for time in t:
-    desired_speed = 20 + 5 * np.sin(0.5 * time)  # Sine wave: oscillates between 15 and 25
+    desired_speed = 20 + 5 * np.sin(0.5 * time) + time  # Sine wave: oscillates between 15 and 25
     desired_history.append(desired_speed)
 
     error = desired_speed - v
