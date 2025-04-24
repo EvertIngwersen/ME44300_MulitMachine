@@ -6,3 +6,6 @@ Created on Thu Apr 24 13:20:44 2025
 """
 
 import numpy as np
+
+m = 1000 # mass of the car
+
