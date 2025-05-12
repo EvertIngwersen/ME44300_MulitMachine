@@ -35,4 +35,25 @@ v_ref = 10      #reference speed
 s_now = 0
 v_now = 0.5
 
+# History logs
+s_hist = [s_now]
+v_hist = [v_now]
+u_hist = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
