@@ -15,10 +15,10 @@ b = 1000        #rolling resistance
 c = 50          #aero drag coef
 g = 9.81
 α = 0           #slope
-dt = 0.1
+dt = 0.5
 ε = 0.01
 N = 10          #MPC horizon
-T = 50          #total time
+T = 500          #total time
 steps = int(T / dt)
 
 # Constraints
@@ -30,7 +30,7 @@ Q_v = 1         #speed tracking
 R = 1e-7        #power usage
 
 # Reference speed
-v_ref = 10      #reference speed
+v_ref = 3      #reference speed
 
 # Initial state
 s_now = 0
