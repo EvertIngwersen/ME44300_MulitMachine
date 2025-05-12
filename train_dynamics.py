@@ -18,7 +18,7 @@ g = 9.81
 dt = 0.5
 ε = 0.01
 N = 10          #MPC horizon
-T = 500          #total time
+T = 50         #total time
 steps = int(T / dt)
 
 # Constraints
